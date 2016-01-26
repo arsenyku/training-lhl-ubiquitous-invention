@@ -8,11 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		123B47071C57227B0011D340 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123B47061C57227B0011D340 /* AppDelegate.swift */; };
-		123B47091C57227B0011D340 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123B47081C57227B0011D340 /* ViewController.swift */; };
+		123B47091C57227B0011D340 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123B47081C57227B0011D340 /* ProfileViewController.swift */; };
 		123B470C1C57227B0011D340 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 123B470A1C57227B0011D340 /* Main.storyboard */; };
 		123B470E1C57227B0011D340 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 123B470D1C57227B0011D340 /* Assets.xcassets */; };
 		123B47111C57227B0011D340 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 123B470F1C57227B0011D340 /* LaunchScreen.storyboard */; };
 		123B471C1C57227C0011D340 /* SelfiegramTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123B471B1C57227C0011D340 /* SelfiegramTests.swift */; };
+		123B47271C5753950011D340 /* SelfieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123B47261C5753950011D340 /* SelfieCell.swift */; };
+		123B47291C5754050011D340 /* NewsFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123B47281C5754050011D340 /* NewsFeedViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,7 +30,7 @@
 /* Begin PBXFileReference section */
 		123B47031C57227B0011D340 /* Selfiegram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Selfiegram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		123B47061C57227B0011D340 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		123B47081C57227B0011D340 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		123B47081C57227B0011D340 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		123B470B1C57227B0011D340 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		123B470D1C57227B0011D340 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		123B47101C57227B0011D340 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -36,6 +38,8 @@
 		123B47171C57227C0011D340 /* SelfiegramTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SelfiegramTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		123B471B1C57227C0011D340 /* SelfiegramTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfiegramTests.swift; sourceTree = "<group>"; };
 		123B471D1C57227C0011D340 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		123B47261C5753950011D340 /* SelfieCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelfieCell.swift; sourceTree = "<group>"; };
+		123B47281C5754050011D340 /* NewsFeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFeedViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,7 +82,9 @@
 			isa = PBXGroup;
 			children = (
 				123B47061C57227B0011D340 /* AppDelegate.swift */,
-				123B47081C57227B0011D340 /* ViewController.swift */,
+				123B47081C57227B0011D340 /* ProfileViewController.swift */,
+				123B47281C5754050011D340 /* NewsFeedViewController.swift */,
+				123B47261C5753950011D340 /* SelfieCell.swift */,
 				123B470A1C57227B0011D340 /* Main.storyboard */,
 				123B470D1C57227B0011D340 /* Assets.xcassets */,
 				123B470F1C57227B0011D340 /* LaunchScreen.storyboard */,
@@ -197,8 +203,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				123B47091C57227B0011D340 /* ViewController.swift in Sources */,
+				123B47091C57227B0011D340 /* ProfileViewController.swift in Sources */,
+				123B47291C5754050011D340 /* NewsFeedViewController.swift in Sources */,
 				123B47071C57227B0011D340 /* AppDelegate.swift in Sources */,
+				123B47271C5753950011D340 /* SelfieCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -329,6 +337,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.asu.training.Selfiegram;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -340,6 +349,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.asu.training.Selfiegram;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
