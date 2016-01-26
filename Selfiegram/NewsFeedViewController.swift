@@ -8,12 +8,23 @@
 
 import UIKit
 
-class NewsFeedViewController: UITableViewController {
+class NewsFeedViewController: UITableViewController,UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+
+
+    @IBOutlet weak var cameraButtonItem: UIBarButtonItem!
+    
+    var posts = [Post]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        if TARGET_OS_SIMULATOR != 1
+        {
+            cameraButtonItem!.action = Selector("takeAPhoto:")
+        }
+        
 
+//        posts.append(Post(name:"flark", image:UIImage(named: "grumpy-cat")!, comment: "start"))
     }
 
     // MARK: - Table view data source
@@ -25,7 +36,7 @@ class NewsFeedViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 5
+        return posts.count
     }
 
     
@@ -36,8 +47,10 @@ class NewsFeedViewController: UITableViewController {
         {
             return cell
         }
+        
+        let post = posts[indexPath.row]
 
-        selfieCell.displayInfo(name: "spoon", imageName: "grumpy-cat", comment: "Grumpy cat is grumpy")
+        selfieCell.displayInfo(name: post.name, image:post.image, comment:post.comment)
         
         return selfieCell
     }
@@ -52,5 +65,52 @@ class NewsFeedViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     
+    
+    // MARK: - Handlers
+    
+    @IBAction func pickAnImage(sender: AnyObject)
+    {
+        let pickerController = UIImagePickerController()
+
+        pickerController.delegate = self
+        
+        pickerController.sourceType = .PhotoLibrary
+        
+        self.presentViewController(pickerController, animated: true, completion: nil);
+    }
+    
+    @IBAction func takeAPhoto(sender: AnyObject)
+    {
+        let pickerController = UIImagePickerController()
+        
+        pickerController.delegate = self
+
+        pickerController.sourceType = .Camera
+        pickerController.cameraDevice = .Front
+        pickerController.cameraCaptureMode = .Photo
+        
+        self.presentViewController(pickerController, animated: true, completion: nil);
+        
+    }
+
+    // MARK: - UIImagePickerControllerDelegate
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        
+        guard let image = info[UIImagePickerControllerOriginalImage] as? UIImage else
+        {
+            dismissViewControllerAnimated(true, completion:  {})
+            return
+        }
+        
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "HH:mm:ss"
+        let comment = formatter.stringFromDate(NSDate())
+        posts.insert(Post(name:"grumpy cat", image:image, comment:"\(comment)"), atIndex:0)
+        tableView.reloadData()
+        dismissViewControllerAnimated(true, completion:  {})
+        
+        
+    }
 
 }

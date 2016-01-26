@@ -16,18 +16,23 @@ class SelfieCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        postImageView.layer.cornerRadius = postImageView.layer.bounds.size.width / 2
-        postImageView.layer.masksToBounds = true
     }
 
-    func displayInfo(name name:String, imageName:String, comment:String)
+    func displayInfo(name name:String, image:UIImage, comment:String)
     {
-        postImageView!.image = UIImage(named: imageName)
+        postImageView!.image = image
 		
         postNameField!.text = name
         
  		postCommentField.text = comment
+
+        print(NSStringFromCGRect(postImageView.layer.frame))
+        
+        postImageView.layer.masksToBounds = true
+        postImageView.layer.cornerRadius = postImageView.layer.frame.width/2.0
+        postImageView.layer.borderWidth = 0
     }
+    
     
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

@@ -15,6 +15,8 @@
 		123B471C1C57227C0011D340 /* SelfiegramTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123B471B1C57227C0011D340 /* SelfiegramTests.swift */; };
 		123B47271C5753950011D340 /* SelfieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123B47261C5753950011D340 /* SelfieCell.swift */; };
 		123B47291C5754050011D340 /* NewsFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123B47281C5754050011D340 /* NewsFeedViewController.swift */; };
+		123B472B1C5764810011D340 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123B472A1C5764810011D340 /* Post.swift */; };
+		123B472D1C5766D20011D340 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123B472C1C5766D20011D340 /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +42,8 @@
 		123B471D1C57227C0011D340 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		123B47261C5753950011D340 /* SelfieCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelfieCell.swift; sourceTree = "<group>"; };
 		123B47281C5754050011D340 /* NewsFeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFeedViewController.swift; sourceTree = "<group>"; };
+		123B472A1C5764810011D340 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		123B472C1C5766D20011D340 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +89,8 @@
 				123B47081C57227B0011D340 /* ProfileViewController.swift */,
 				123B47281C5754050011D340 /* NewsFeedViewController.swift */,
 				123B47261C5753950011D340 /* SelfieCell.swift */,
+				123B472A1C5764810011D340 /* Post.swift */,
+				123B472C1C5766D20011D340 /* User.swift */,
 				123B470A1C57227B0011D340 /* Main.storyboard */,
 				123B470D1C57227B0011D340 /* Assets.xcassets */,
 				123B470F1C57227B0011D340 /* LaunchScreen.storyboard */,
@@ -205,8 +211,10 @@
 			files = (
 				123B47091C57227B0011D340 /* ProfileViewController.swift in Sources */,
 				123B47291C5754050011D340 /* NewsFeedViewController.swift in Sources */,
+				123B472D1C5766D20011D340 /* User.swift in Sources */,
 				123B47071C57227B0011D340 /* AppDelegate.swift in Sources */,
 				123B47271C5753950011D340 /* SelfieCell.swift in Sources */,
+				123B472B1C5764810011D340 /* Post.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
