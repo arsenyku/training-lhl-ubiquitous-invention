@@ -5,7 +5,7 @@
 //  Created by asu on 2016-01-25.
 //  Copyright © 2016 asu. All rights reserved.
 //
-
+import Parse
 import UIKit
 
 class NewsFeedViewController: UITableViewController,UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -23,7 +23,8 @@ class NewsFeedViewController: UITableViewController,UIImagePickerControllerDeleg
             cameraButtonItem!.action = Selector("takeAPhoto:")
         }
         
-        let task = NSURLSession.sharedSession().dataTaskWithURL(NSURL(string: "https://www.flickr.com/services/rest/?method=flickr.photos.search&format=json&nojsoncallback=1&api_key=e33dc5502147cf3fd3515aa44224783f&tags=cat")!) { (data, response, error) -> Void in
+        let url = NSURL(string: "https://www.flickr.com/services/rest/?method=flickr.photos.search&format=json&nojsoncallback=1&api_key=e33dc5502147cf3fd3515aa44224783f&tags=cat"),
+        	task = NSURLSession.sharedSession().dataTaskWithURL(url!) { (data, response, error) -> Void in
             
             
             do {
@@ -58,8 +59,7 @@ class NewsFeedViewController: UITableViewController,UIImagePickerControllerDeleg
                             me.name = "u ser"
                             me.profileImage = UIImage(named: "grumpy-cat")!
                             
-                            
-                            let post = Post(name: me.name, imageUrl: photoURLString, comment: "Flickr selfie")
+                            let post = Post(name: me.name, imageAddress: photoURLString, comment: "Flickr selfie")
 
                             self.posts.append(post)
                         }
@@ -68,7 +68,11 @@ class NewsFeedViewController: UITableViewController,UIImagePickerControllerDeleg
                     
                 }
                 
-                self.tableView.reloadData()
+
+                dispatch_async(dispatch_get_main_queue(),
+                {
+                    self.tableView.reloadData()
+                })
                 
                 
             } catch
@@ -81,6 +85,8 @@ class NewsFeedViewController: UITableViewController,UIImagePickerControllerDeleg
         task.resume()
     }
 
+
+    
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -151,7 +157,9 @@ class NewsFeedViewController: UITableViewController,UIImagePickerControllerDeleg
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         
-        guard let image = info[UIImagePickerControllerOriginalImage] as? UIImage else
+        guard let image = info[UIImagePickerControllerOriginalImage] as? UIImage,
+        	  let user = PFUser.currentUser(),
+              let username = user.username else
         {
             dismissViewControllerAnimated(true, completion:  {})
             return
@@ -160,7 +168,8 @@ class NewsFeedViewController: UITableViewController,UIImagePickerControllerDeleg
         let formatter = NSDateFormatter()
         formatter.dateFormat = "HH:mm:ss"
         let comment = formatter.stringFromDate(NSDate())
-//        posts.insert(Post(name:"grumpy cat", image:image, comment:"\(comment)"), atIndex:0)
+        
+        posts.insert(Post(name:username, image:image, comment:"\(comment)"), atIndex:0)
         tableView.reloadData()
         dismissViewControllerAnimated(true, completion:  {})
         

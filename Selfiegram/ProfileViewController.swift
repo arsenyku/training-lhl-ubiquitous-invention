@@ -6,6 +6,7 @@
 //  Copyright © 2016 asu. All rights reserved.
 //
 
+import Parse
 import UIKit
 
 class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -22,6 +23,22 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         nameLabel.text = "yourName"
     }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let user = PFUser.currentUser(){
+            nameLabel.text = user.username
+            
+            if let imageFile = user["avatarImage"] as? PFFile {
+                
+                imageFile.getDataInBackgroundWithBlock({ (data, error) -> Void in
+                    if let imageData = data {
+                        self.profileImageView.image = UIImage(data: imageData)
+                    }
+                })
+            }
+        }
+    }
 
     @IBAction func takeAPhoto(sender: AnyObject)
     {
@@ -62,6 +79,21 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage
         {
         	profileImageView.image = image
+            
+            if let imageData = UIImageJPEGRepresentation(image, 0.9),
+                let imageFile = PFFile(data: imageData),
+                let user = PFUser.currentUser(){
+                    
+                    // avatarImage is a new column in our User table
+                    user["avatarImage"] = imageFile
+                    user.saveInBackgroundWithBlock({ (success, error) -> Void in
+                        if success {
+                            print("avatarImage successfully saved")
+                        }
+                    })
+                    
+                    
+            }
         }
     
         dismissViewControllerAnimated(true, completion:  {})

@@ -5,6 +5,7 @@
 //  Created by asu on 2016-01-25.
 //  Copyright © 2016 asu. All rights reserved.
 //
+import Parse
 
 import UIKit
 
@@ -15,7 +16,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+
+        // Initialize Parse.
+        Parse.setApplicationId("xFXFsw0GM3cKJIO6yrEllxanzmZgnYphdqzaMoSV",
+            clientKey: "he0o5zqe8wvBI3Z5n4SBEzdjW5iXJ8h1PwFRNTPt")
+        
+        let user = PFUser()
+        let username = "arsenyk"
+        let password = "arsenyk"
+        user.username = username
+        user.password = password
+        user.signUpInBackgroundWithBlock { (success, error) -> Void in
+            if success {
+                print("successfully signed up a user")
+            }else {
+                PFUser.logInWithUsernameInBackground(username, password: password, block: { (user, error) -> Void in
+                    if let user = user {
+                        print("successfully logged in \(user)")
+                    }
+                })
+            }
+        }
         return true
     }
 
