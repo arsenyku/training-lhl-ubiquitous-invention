@@ -18,20 +18,43 @@ class SelfieCell: UITableViewCell {
         super.awakeFromNib()
     }
 
-    func displayInfo(name name:String, image:UIImage, comment:String)
+    func displayPost(post:Post)
     {
-        postImageView!.image = image
-		
-        postNameField!.text = name
-        
- 		postCommentField.text = comment
+        displayInfo(name: post.name, imageAddress: post.imageUrl, comment: post.comment)
+    }
+    
+    func displayInfo(name name:String, imageAddress:String, comment:String)
+    {
+        postNameField.text = name
+        postCommentField.text = comment
 
-        print(NSStringFromCGRect(postImageView.layer.frame))
         
         postImageView.layer.masksToBounds = true
-        postImageView.layer.cornerRadius = postImageView.layer.frame.width/2.0
+        postImageView.layer.cornerRadius = self.postImageView.layer.frame.width/2.0
         postImageView.layer.borderWidth = 0
-    }
+        
+        guard let imageUrl = NSURL(string: imageAddress) else
+        {
+            return
+        }
+        let task = NSURLSession.sharedSession().downloadTaskWithURL(imageUrl) { (url, response, error) -> Void in
+            
+            if let receivedDataUrl = url,
+                let imageData = NSData(contentsOfURL: receivedDataUrl){
+
+                    let image = UIImage(data: imageData)
+
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        
+                        self.postImageView.image = image
+                    
+                    })
+            }
+            
+        }
+        
+        task.resume()
+     }
     
     
     override func setSelected(selected: Bool, animated: Bool) {

@@ -11,14 +11,15 @@ import UIKit
 class Post {
 
     let name:String
-    let image:UIImage
-    let comment:String 
+    let imageUrl:String
+    let comment:String
 
-    init(name:String, image: UIImage, comment:String)
+    init(name:String, imageUrl: String, comment:String)
     {
     	self.name = name
-    	self.image = image
+    	self.imageUrl = imageUrl
     	self.comment = comment
     }
+    
     
 }

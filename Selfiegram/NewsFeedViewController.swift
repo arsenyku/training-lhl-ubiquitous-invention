@@ -23,8 +23,62 @@ class NewsFeedViewController: UITableViewController,UIImagePickerControllerDeleg
             cameraButtonItem!.action = Selector("takeAPhoto:")
         }
         
+        let task = NSURLSession.sharedSession().dataTaskWithURL(NSURL(string: "https://www.flickr.com/services/rest/?method=flickr.photos.search&format=json&nojsoncallback=1&api_key=e33dc5502147cf3fd3515aa44224783f&tags=cat")!) { (data, response, error) -> Void in
+            
+            
+            do {
+            
+            	let jsonUnformatted = try NSJSONSerialization.JSONObjectWithData(data!, options: [])
+                
+                let json = jsonUnformatted as? [String : AnyObject]
+                
+                let photosDictionary = json?["photos"] as? [String : AnyObject]
+                
+                guard let photosArray = photosDictionary?["photo"] as? [[String : AnyObject]] else
+                {
+	                print("error with parsing photos in response data")
+                    return
+                }
+                
+                
+                for photo in photosArray
+                {
+                    
+                    if let farmID = photo["farm"] as? Int,
+                        let serverID = photo["server"] as? String,
+                        let photoID = photo["id"] as? String,
+                        let secret = photo["secret"] as? String
+                    {
+                            
+                        let photoURLString = "https://farm\(farmID).staticflickr.com/\(serverID)/\(photoID)_\(secret).jpg"
 
-//        posts.append(Post(name:"flark", image:UIImage(named: "grumpy-cat")!, comment: "start"))
+                        if let _ = NSURL(string: photoURLString){
+                            let me = User()
+                            
+                            me.name = "u ser"
+                            me.profileImage = UIImage(named: "grumpy-cat")!
+                            
+                            
+                            let post = Post(name: me.name, imageUrl: photoURLString, comment: "Flickr selfie")
+
+                            self.posts.append(post)
+                        }
+                        
+                    }
+                    
+                }
+                
+                self.tableView.reloadData()
+                
+                
+            } catch
+            {
+                print("error with parsing response data")
+            }
+
+        }
+        
+        task.resume()
     }
 
     // MARK: - Table view data source
@@ -50,7 +104,7 @@ class NewsFeedViewController: UITableViewController,UIImagePickerControllerDeleg
         
         let post = posts[indexPath.row]
 
-        selfieCell.displayInfo(name: post.name, image:post.image, comment:post.comment)
+        selfieCell.displayPost(post)
         
         return selfieCell
     }
@@ -106,11 +160,13 @@ class NewsFeedViewController: UITableViewController,UIImagePickerControllerDeleg
         let formatter = NSDateFormatter()
         formatter.dateFormat = "HH:mm:ss"
         let comment = formatter.stringFromDate(NSDate())
-        posts.insert(Post(name:"grumpy cat", image:image, comment:"\(comment)"), atIndex:0)
+//        posts.insert(Post(name:"grumpy cat", image:image, comment:"\(comment)"), atIndex:0)
         tableView.reloadData()
         dismissViewControllerAnimated(true, completion:  {})
         
         
     }
+    
+
 
 }
