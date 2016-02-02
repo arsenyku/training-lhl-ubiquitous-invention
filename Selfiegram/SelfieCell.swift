@@ -6,6 +6,7 @@
 //  Copyright © 2016 asu. All rights reserved.
 //
 
+import Parse
 import UIKit
 
 class SelfieCell: UITableViewCell {
@@ -20,14 +21,21 @@ class SelfieCell: UITableViewCell {
 
     func displayPost(post:Post)
     {
-        displayInfo(name: post.name, image: post.image, comment: post.comment)
+        displayInfo(name:post.user.username!, imageFile:post.image, comment: post.comment)
     }
     
-    func displayInfo(name name:String, image:UIImage, comment:String)
+    func displayInfo(name name:String, imageFile:PFFile, comment:String)
     {
         postNameField.text = name
         postCommentField.text = comment
-		postImageView.image = image
+        
+        imageFile.getDataInBackgroundWithBlock { (data, error) -> Void in
+            if let data = data {
+                let image = UIImage(data: data)
+                self.postImageView.image = image
+            }
+        }
+        
         
         postImageView.layer.masksToBounds = true
         postImageView.layer.cornerRadius = self.postImageView.layer.frame.width/2.0

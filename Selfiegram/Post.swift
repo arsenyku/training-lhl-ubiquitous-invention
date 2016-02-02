@@ -6,48 +6,30 @@
 //  Copyright © 2016 asu. All rights reserved.
 //
 
-import UIKit
+import Parse
 
-class Post {
-
-    let name:String
-    var imageAddress:String
-    var image:UIImage!
-    let comment:String
-
-    init(name:String, comment:String)
-    {
-        self.name = name
-        self.comment = comment
-        self.imageAddress = ""
-        self.image = UIImage(named: "placeholder")
-    }
+class Post:PFObject, PFSubclassing {
     
-    convenience init(name:String, image: UIImage, comment:String)
-    {
-        self.init(name:name, comment:comment)
+    @NSManaged var image:PFFile
+    @NSManaged var user:PFUser
+    @NSManaged var comment:String
+    
+    static func parseClassName() -> String {
+        return "Post"
+    }
+
+    
+    // convenience init method, because it’s building on top of PFObject’s init, rather than overriding it.
+    convenience init(image:PFFile, user:PFUser, comment:String){
+        // You can name the property you are passing into the function the
+        // same name as the class' property. To distinguish the two
+        // add "self." to the beginning of the class' property.
+        self.init()
         self.image = image
+        self.user = user
+        self.comment = comment
     }
-    
-    convenience init(name:String, imageAddress: String, comment:String)
-    {
-        self.init(name:name, comment:comment)
-        self.imageAddress = imageAddress
-        
-        let url = NSURL(string: imageAddress),
-	        task = NSURLSession.sharedSession().downloadTaskWithURL(url!) { (url, response, error) -> Void in
-            
-            if let receivedDataUrl = url,
-                let imageData = NSData(contentsOfURL: receivedDataUrl)
-            {
-                    let image = UIImage(data: imageData)
-                    self.image = image
-            }
-            
-        }
-
-        task.resume()
-    }
-    
     
 }
+
+
