@@ -92,12 +92,13 @@
                                                 <constraint firstAttribute="width" secondItem="NGO-Qe-cBc" secondAttribute="height" multiplier="1:1" id="dx4-3q-b0g"/>
                                             </constraints>
                                         </imageView>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="some text" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Dqf-Mv-egB">
+                                        <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="some text" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Dqf-Mv-egB">
                                             <rect key="frame" x="107" y="229" width="85" height="30"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits"/>
+                                            <textInputTraits key="textInputTraits" keyboardAppearance="alert"/>
                                         </textField>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" text="comments go here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vic-eE-iVB">
+                                        <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" text="comments go here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vic-eE-iVB">
                                             <rect key="frame" x="209" y="10" width="142" height="30"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
@@ -133,8 +134,15 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="Nze-ie-IZK">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <connections>
+                            <action selector="moreCatsPlease:" destination="1m3-rp-m6r" eventType="valueChanged" id="veB-OH-tae"/>
+                        </connections>
+                    </refreshControl>
                     <connections>
                         <outlet property="cameraButtonItem" destination="bIZ-61-ZzN" id="AWx-HS-ILS"/>
+                        <outlet property="refresh" destination="Nze-ie-IZK" id="dhY-kV-XR2"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Zg-WF-Qjf" userLabel="First Responder" sceneMemberID="firstResponder"/>

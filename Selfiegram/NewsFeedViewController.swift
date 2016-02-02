@@ -13,6 +13,8 @@ class NewsFeedViewController: UITableViewController,UIImagePickerControllerDeleg
 
     @IBOutlet weak var cameraButtonItem: UIBarButtonItem!
     
+    @IBOutlet weak var refresh: UIRefreshControl!
+    
     var posts = [Post]()
 
     override func viewDidLoad() {
@@ -23,66 +25,8 @@ class NewsFeedViewController: UITableViewController,UIImagePickerControllerDeleg
             cameraButtonItem!.action = Selector("takeAPhoto:")
         }
         
-        let url = NSURL(string: "https://www.flickr.com/services/rest/?method=flickr.photos.search&format=json&nojsoncallback=1&api_key=e33dc5502147cf3fd3515aa44224783f&tags=cat"),
-        	task = NSURLSession.sharedSession().dataTaskWithURL(url!) { (data, response, error) -> Void in
-            
-            
-            do {
-            
-            	let jsonUnformatted = try NSJSONSerialization.JSONObjectWithData(data!, options: [])
-                
-                let json = jsonUnformatted as? [String : AnyObject]
-                
-                let photosDictionary = json?["photos"] as? [String : AnyObject]
-                
-                guard let photosArray = photosDictionary?["photo"] as? [[String : AnyObject]] else
-                {
-	                print("error with parsing photos in response data")
-                    return
-                }
-                
-                
-                for photo in photosArray
-                {
-                    
-                    if let farmID = photo["farm"] as? Int,
-                        let serverID = photo["server"] as? String,
-                        let photoID = photo["id"] as? String,
-                        let secret = photo["secret"] as? String
-                    {
-                            
-                        let photoURLString = "https://farm\(farmID).staticflickr.com/\(serverID)/\(photoID)_\(secret).jpg"
-
-                        if let _ = NSURL(string: photoURLString){
-                            let me = User()
-                            
-                            me.name = "u ser"
-                            me.profileImage = UIImage(named: "grumpy-cat")!
-                            
-                            let post = Post(name: me.name, imageAddress: photoURLString, comment: "Flickr selfie")
-
-                            self.posts.append(post)
-                        }
-                        
-                    }
-                    
-                }
-                
-
-                dispatch_async(dispatch_get_main_queue(),
-                {
-                    self.tableView.reloadData()
-                })
-                
-                
-            } catch
-            {
-                print("error with parsing response data")
-            }
-
-        }
+        getMoreCats()
         
-        task.resume()
     }
 
 
@@ -153,6 +97,13 @@ class NewsFeedViewController: UITableViewController,UIImagePickerControllerDeleg
         
     }
 
+    @IBAction func moreCatsPlease(sender: UIRefreshControl?) {
+        
+        getMoreCats()
+
+        
+    }
+    
     // MARK: - UIImagePickerControllerDelegate
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
@@ -173,6 +124,78 @@ class NewsFeedViewController: UITableViewController,UIImagePickerControllerDeleg
         tableView.reloadData()
         dismissViewControllerAnimated(true, completion:  {})
         
+        
+    }
+    
+
+    // MARK: - Helpers
+    
+    func getMoreCats()
+    {
+        let url = NSURL(string: "https://www.flickr.com/services/rest/?method=flickr.photos.search&format=json&nojsoncallback=1&api_key=e33dc5502147cf3fd3515aa44224783f&tags=cat"),
+        task = NSURLSession.sharedSession().dataTaskWithURL(url!) { (data, response, error) -> Void in
+            
+            
+            do {
+                
+                let jsonUnformatted = try NSJSONSerialization.JSONObjectWithData(data!, options: [])
+                
+                let json = jsonUnformatted as? [String : AnyObject]
+                
+                let photosDictionary = json?["photos"] as? [String : AnyObject]
+                
+                guard let photosArray = photosDictionary?["photo"] as? [[String : AnyObject]] else
+                {
+                    print("error with parsing photos in response data")
+                    return
+                }
+                
+                
+                for photo in photosArray
+                {
+                    
+                    if let farmID = photo["farm"] as? Int,
+                        let serverID = photo["server"] as? String,
+                        let photoID = photo["id"] as? String,
+                        let secret = photo["secret"] as? String,
+                        let title = photo["title"] as? String,
+                        let owner = photo["owner"] as? String
+                    {
+                        
+                        let photoURLString = "https://farm\(farmID).staticflickr.com/\(serverID)/\(photoID)_\(secret).jpg"
+                        
+                        if let _ = NSURL(string: photoURLString){
+                            let me = User()
+                            
+                            me.name = owner
+                            me.profileImage = UIImage(named: "grumpy-cat")!
+                            
+                            let post = Post(name: me.name, imageAddress: photoURLString, comment: title)
+                            
+                            self.posts.append(post)
+                        }
+                        
+                    }
+                    
+                }
+                
+                
+                dispatch_async(dispatch_get_main_queue(),
+                {
+                    self.tableView.reloadData()
+                    self.refresh.endRefreshing()
+                })
+                
+                
+            } catch
+            {
+                print("error with parsing response data")
+            }
+            
+        }
+        
+        task.resume()
+
         
     }
     

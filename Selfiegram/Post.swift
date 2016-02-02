@@ -40,7 +40,6 @@ class Post {
             if let receivedDataUrl = url,
                 let imageData = NSData(contentsOfURL: receivedDataUrl)
             {
-                    
                     let image = UIImage(data: imageData)
                     self.image = image
             }
