@@ -88,26 +88,90 @@ class SelfieCell: UITableViewCell {
             // of the same element (in this case user)
             post.likes.addObject(user)
             post.liked = true
+            
+            self.saveLikedPost(post)
+            
         }
         else
         {
             post.likes.removeObject(user)
             post.liked = false
 
+            self.saveUnlikedPost(post)
         }
+        
+    }
+    
+    
+    func saveLikedPost(post:Post)
+    {
+        guard let user = PFUser.currentUser() else { return }
         
         // We have modified the likes property on post. We must now save it to Parse
         post.saveInBackgroundWithBlock(
-        { (success, error) -> Void in
+            { (success, error) -> Void in
+                if success
+                {
+                    print("like from user successfully saved")
+                    
+                    // Creating an row in the Activity table
+                    // Saving it as a "like" type
+                    let activity = Activity(type: "like", post: post, user: user)
+                    activity.saveInBackgroundWithBlock(
+                    { (success, error) -> Void in
+                        print("activity successfully saved")
+                    })
+                    
+                }
+                else
+                {
+                    print("error is \(error)")
+                }
+        })
+
+    }
+    
+    
+    func saveUnlikedPost(post:Post)
+    {
+        guard let user = PFUser.currentUser() else { return }
+        
+        post.saveInBackgroundWithBlock({ (success, error) -> Void in
             if success
             {
-                print("like from user successfully saved")
+                print("like from user successfully removed")
+                
+                //PFQuery to find the like activity
+                if let activityQuery = Activity.query()
+                {
+                    activityQuery.whereKey("post", equalTo: post)
+                    activityQuery.whereKey("user", equalTo: user)
+                    activityQuery.whereKey("type", equalTo: "like")
+                    activityQuery.findObjectsInBackgroundWithBlock(
+                    { (activities, error) -> Void in
+                        
+                        
+                        // You should only have one like activity from a user
+                        // but this is code is being safe and checking for one or multiple instances
+                        // and then deleting all of them
+                        if let activities = activities
+                        {
+                            for activity in activities
+                            {
+                                activity.deleteInBackgroundWithBlock(
+                                { (success, error) -> Void in
+                                    print("deleted activity")
+                                })
+                            }
+                        }
+                    })
+                }
+                
             }
             else
             {
                 print("error is \(error)")
             }
         })
-
     }
 }
