@@ -4,7 +4,7 @@
 //
 //  Created by asu on 2016-01-25.
 //  Copyright © 2016 asu. All rights reserved.
-//
+//r
 import Parse
 
 import UIKit
@@ -17,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
+        Activity.registerSubclass()
         Post.registerSubclass()
         
         // Initialize Parse.

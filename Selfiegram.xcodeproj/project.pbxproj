@@ -17,6 +17,7 @@
 		123B47291C5754050011D340 /* NewsFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123B47281C5754050011D340 /* NewsFeedViewController.swift */; };
 		123B472B1C5764810011D340 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123B472A1C5764810011D340 /* Post.swift */; };
 		123B472D1C5766D20011D340 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123B472C1C5766D20011D340 /* User.swift */; };
+		123B474C1C60A1C80011D340 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123B474B1C60A1C80011D340 /* Activity.swift */; };
 		3E4B019E8F29B3D806BE70F8 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00965E74EE08C36EDCFECBF2 /* Pods.framework */; };
 /* End PBXBuildFile section */
 
@@ -46,6 +47,7 @@
 		123B47281C5754050011D340 /* NewsFeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFeedViewController.swift; sourceTree = "<group>"; };
 		123B472A1C5764810011D340 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		123B472C1C5766D20011D340 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		123B474B1C60A1C80011D340 /* Activity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		28A358FB2768D73C7BD7B49B /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		D7044B51EFB4A9BF6038D45A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -96,6 +98,7 @@
 				123B47081C57227B0011D340 /* ProfileViewController.swift */,
 				123B47281C5754050011D340 /* NewsFeedViewController.swift */,
 				123B47261C5753950011D340 /* SelfieCell.swift */,
+				123B474B1C60A1C80011D340 /* Activity.swift */,
 				123B472A1C5764810011D340 /* Post.swift */,
 				123B472C1C5766D20011D340 /* User.swift */,
 				123B470A1C57227B0011D340 /* Main.storyboard */,
@@ -286,6 +289,7 @@
 			files = (
 				123B47091C57227B0011D340 /* ProfileViewController.swift in Sources */,
 				123B47291C5754050011D340 /* NewsFeedViewController.swift in Sources */,
+				123B474C1C60A1C80011D340 /* Activity.swift in Sources */,
 				123B472D1C5766D20011D340 /* User.swift in Sources */,
 				123B47071C57227B0011D340 /* AppDelegate.swift in Sources */,
 				123B47271C5753950011D340 /* SelfieCell.swift in Sources */,

@@ -79,7 +79,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="postCell" id="ljJ-OZ-qpt" customClass="SelfieCell" customModule="Selfiegram" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="postCell" id="ljJ-OZ-qpt" customClass="SelfieCell" customModule="Selfiegram" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="92" width="600" height="280"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ljJ-OZ-qpt" id="BFN-0B-o6Z">
@@ -103,18 +103,29 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WX2-pj-jjd" userLabel="likeButton">
+                                            <rect key="frame" x="237" y="232" width="42" height="37"/>
+                                            <state key="normal" image="hearts-off"/>
+                                            <state key="selected" image="hearts-on"/>
+                                            <connections>
+                                                <action selector="toggleLikeButton:" destination="ljJ-OZ-qpt" eventType="touchUpInside" id="tfd-mn-nzF"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="Dqf-Mv-egB" firstAttribute="centerX" secondItem="NGO-Qe-cBc" secondAttribute="centerX" id="7oa-YD-vcL" userLabel="text centre X"/>
                                         <constraint firstItem="vic-eE-iVB" firstAttribute="leading" secondItem="NGO-Qe-cBc" secondAttribute="trailing" multiplier="0.75" id="C2i-U2-XaV" userLabel="comment h space"/>
+                                        <constraint firstItem="WX2-pj-jjd" firstAttribute="leading" secondItem="NGO-Qe-cBc" secondAttribute="trailing" multiplier="0.85" id="E83-IO-WQk" userLabel="likeButton left"/>
                                         <constraint firstAttribute="top" secondItem="NGO-Qe-cBc" secondAttribute="top" constant="-10" id="UER-un-EfK"/>
                                         <constraint firstItem="vic-eE-iVB" firstAttribute="top" secondItem="NGO-Qe-cBc" secondAttribute="top" id="Uig-Th-drO" userLabel="comment top"/>
                                         <constraint firstItem="NGO-Qe-cBc" firstAttribute="leading" secondItem="BFN-0B-o6Z" secondAttribute="leading" constant="20" id="ZIe-s4-afW" userLabel="image x"/>
+                                        <constraint firstItem="WX2-pj-jjd" firstAttribute="bottom" secondItem="NGO-Qe-cBc" secondAttribute="bottom" id="d00-CT-Thg" userLabel="likeButton bottom"/>
                                         <constraint firstAttribute="bottom" secondItem="NGO-Qe-cBc" secondAttribute="bottom" constant="10" id="d9S-3a-SjZ"/>
                                         <constraint firstItem="Dqf-Mv-egB" firstAttribute="bottom" secondItem="NGO-Qe-cBc" secondAttribute="bottom" constant="-10" id="gnr-mQ-87y" userLabel="text bottom"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="likeButton" destination="WX2-pj-jjd" id="xeq-Uo-NBP"/>
                                     <outlet property="postCommentField" destination="vic-eE-iVB" id="63P-NL-GVn"/>
                                     <outlet property="postImageView" destination="NGO-Qe-cBc" id="XBJ-Vv-ru2"/>
                                     <outlet property="postNameField" destination="Dqf-Mv-egB" id="HeW-Rh-ZrU"/>
@@ -268,6 +279,8 @@
         <image name="Activities" width="25" height="25"/>
         <image name="NewsFeed" width="25" height="25"/>
         <image name="Profile" width="25" height="25"/>
+        <image name="hearts-off" width="42" height="37"/>
+        <image name="hearts-on" width="42" height="37"/>
         <image name="placeholder" width="64" height="64"/>
     </resources>
 </document>

@@ -15,6 +15,8 @@ class NewsFeedViewController: UITableViewController,UIImagePickerControllerDeleg
     
     @IBOutlet weak var refresh: UIRefreshControl!
     
+    @IBOutlet weak var likeButton: UIButton!
+    
     var posts = [Post]()
 
     override func viewDidLoad() {
@@ -25,24 +27,12 @@ class NewsFeedViewController: UITableViewController,UIImagePickerControllerDeleg
             cameraButtonItem!.action = Selector("takeAPhoto:")
         }
         
-        if let query = Post.query() {
-            query.orderByDescending("createdAt")
-            query.includeKey("user")
-            query.findObjectsInBackgroundWithBlock({ (posts, error) -> Void in
-                // this block of code will run when the query is complete
-                
-                if let posts = posts as? [Post]
-                {
-                    self.posts = posts
-                    self.tableView.reloadData()
-                }
-                
-                
-            })
-        }
+        getPosts()
         
     }
 
+    
+    
 
     
     // MARK: - Table view data source
@@ -117,6 +107,7 @@ class NewsFeedViewController: UITableViewController,UIImagePickerControllerDeleg
 
         
     }
+
     
     // MARK: - UIImagePickerControllerDelegate
     
@@ -155,6 +146,60 @@ class NewsFeedViewController: UITableViewController,UIImagePickerControllerDeleg
 
 
     // MARK: - Helpers
+    
+    func getPosts()
+    {
+        if let query = Post.query() {
+            query.orderByDescending("createdAt")
+            query.includeKey("user")
+            query.findObjectsInBackgroundWithBlock(
+            { (posts, error) -> Void in
+                // this block of code will run when the query is complete
+                if let posts = posts as? [Post]
+                {
+                    self.posts = posts
+                    
+                    for post in posts
+                    {
+                        let query = post.likes.query()
+                        
+                        query.findObjectsInBackgroundWithBlock(
+                            { (users, error) -> Void in
+                                if (error != nil)
+                                {
+                                    print ("ERR \(error)")
+                                }
+                                
+                                guard let users = users as? [PFUser]
+                                    else
+                                {
+                                    return
+                                }
+                                
+                                for user in users
+                                {
+                                    // If we find that the current user's objectId in our collection
+                                    // of likes we set the likeButton to selected
+                                    // objectId is a great way to compare if two objects are equal
+                                    print ("\(user.objectId) == \(PFUser.currentUser()?.objectId)")
+                                    if user.objectId == PFUser.currentUser()?.objectId
+                                    {
+                                        
+                                        post.liked = true
+                                    }
+                                }
+                                
+                                self.tableView.reloadData()
+                                
+                        })
+                    }
+                    
+                    self.tableView.reloadData()
+                }
+            })
+        }
+        
+    }
     
     func getMoreCats()
     {
