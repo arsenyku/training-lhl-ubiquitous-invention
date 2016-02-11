@@ -185,9 +185,23 @@ class SelfieCell: UITableViewCell {
         
         beatingHeartView.frame = CGRectMake((postImageView.frame.maxX - postImageView.frame.minX)/2, (postImageView.frame.maxY - postImageView.frame.minY)/2, 60, 60)
         
-        UIView.animateWithDuration(1.0, delay: 0, options: [], animations:
+        UIView.animateKeyframesWithDuration(2.0, delay: 0, options: [.CalculationModePaced], animations:
         { () -> Void in
+            for i in 0...4
+            {
+                let even = (i%2 == 0)
+                let pulse = CGFloat(even ? 1.5 : 0.5)
+                
+                UIView.addKeyframeWithRelativeStartTime(0.2*Double(i), relativeDuration: 0.2)
+                { () -> Void in
+                    self.beatingHeartView.transform = CGAffineTransformRotate(self.beatingHeartView.transform, CGFloat(Double(i)*M_PI/5.0))
+                    self.beatingHeartView.transform = CGAffineTransformScale(self.beatingHeartView.transform, pulse, pulse)
 
+                }
+
+            }
+            
+            self.beatingHeartView.transform = CGAffineTransformIdentity
             self.beatingHeartView.frame = self.likeButton.frame
             self.likeButton.hidden = false
             
