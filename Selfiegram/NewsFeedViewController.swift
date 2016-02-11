@@ -184,7 +184,6 @@ class NewsFeedViewController: UITableViewController,UIImagePickerControllerDeleg
                                     print ("\(user.objectId) == \(PFUser.currentUser()?.objectId)")
                                     if user.objectId == PFUser.currentUser()?.objectId
                                     {
-                                        
                                         post.liked = true
                                     }
                                 }
@@ -193,8 +192,6 @@ class NewsFeedViewController: UITableViewController,UIImagePickerControllerDeleg
                                 
                         })
                     }
-                    
-                    self.tableView.reloadData()
                     
                     if (self.refresh.refreshing)
                     {

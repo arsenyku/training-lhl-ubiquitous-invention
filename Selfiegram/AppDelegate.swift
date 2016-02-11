@@ -40,6 +40,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         print("successfully logged in \(user)")
                     }
                 })
+				PFUser.logOutInBackgroundWithBlock({ (logoutError) -> Void in
+                    PFUser.logInWithUsernameInBackground(username, password: password, block: { (user, error) -> Void in
+                        if let user = user {
+                            print("successfully logged in \(user)")
+                        }
+                    })
+                })
+                
             }
         }
         return true

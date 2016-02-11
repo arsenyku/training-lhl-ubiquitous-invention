@@ -15,10 +15,20 @@ class ActivityCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+   
+    func displayActivity(activity: Activity)
+    {
+        
+        guard let poster = activity.post.user.username,
+              let liker = activity.user.username
+        else
+        {
+            return
+        }
+        
+        self.textLabel?.text = "💖 \(liker) liked \(poster)'s photo"
+        
     }
+    
 
 }

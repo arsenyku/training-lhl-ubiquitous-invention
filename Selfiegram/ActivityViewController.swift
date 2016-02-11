@@ -8,28 +8,73 @@
 
 import UIKit
 
-class ActivityViewController: UITableViewController {
+class ActivityViewController: UITableViewController
+{
 
-    override func viewDidLoad() {
+    var activities: [Activity] = []
+    
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+    
+    override func viewDidAppear(animated: Bool)
+    {
+    
+        getActivities()
+        
     }
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int
+    {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return activities.count
+    }
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    {
+    	guard let cell = tableView.dequeueReusableCellWithIdentifier("activityCell", forIndexPath: indexPath) as? ActivityCell
+ 		else
+        {
+            return ActivityCell()
+        }
+        
+        let activity = activities[indexPath.row]
+
+        cell.displayActivity(activity)
+        
+        return cell
+        
+    }
+
+    
+    // MARK: - Helpers
+    
+    func getActivities()
+    {
+        if let query = Activity.query() {
+            query.orderByDescending("createdAt")
+            query.includeKey("user")
+            query.includeKey("post.user")
+            query.findObjectsInBackgroundWithBlock(
+            { (activities, error) -> Void in
+                // this block of code will run when the query is complete
+                if let activities = activities as? [Activity]
+                {
+                    self.activities = activities
+                    self.tableView.reloadData()
+                }
+            })
+        }
     }
 
 
