@@ -13,6 +13,7 @@ class ActivityViewController: UITableViewController
 
     var activities: [Activity] = []
     
+   
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -57,6 +58,11 @@ class ActivityViewController: UITableViewController
     }
 
     
+    @IBAction func refresh(sender: UIRefreshControl)
+    {
+        getActivities()
+    }
+    
     // MARK: - Helpers
     
     func getActivities()
@@ -73,6 +79,15 @@ class ActivityViewController: UITableViewController
                     self.activities = activities
                     self.tableView.reloadData()
                 }
+                
+                if (self.refreshControl!.refreshing)
+                {
+                    dispatch_async(dispatch_get_main_queue(),
+                    {
+                        self.refreshControl!.endRefreshing()
+                    })
+                }
+
             })
         }
     }
