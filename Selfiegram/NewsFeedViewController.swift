@@ -12,10 +12,9 @@ class NewsFeedViewController: UITableViewController,UIImagePickerControllerDeleg
 
 
     @IBOutlet weak var cameraButtonItem: UIBarButtonItem!
-    
     @IBOutlet weak var refresh: UIRefreshControl!
-    
     @IBOutlet weak var likeButton: UIButton!
+    @IBOutlet weak var beatingHeartView: UIImageView!
     
     var posts = [Post]()
 
@@ -146,6 +145,23 @@ class NewsFeedViewController: UITableViewController,UIImagePickerControllerDeleg
 
 
     // MARK: - Helpers
+    
+    @IBAction func doubleTappedSelfie(sender: UITapGestureRecognizer)
+    {
+        let tapLocation  = sender.locationInView(tableView)
+        
+        guard let indexPathAtTapLocation = tableView.indexPathForRowAtPoint(tapLocation),
+              let cell = tableView.cellForRowAtIndexPath(indexPathAtTapLocation) as? SelfieCell
+        else
+        {
+            return
+        }
+       
+        cell.tapAnimation()
+        
+    }
+    
+    
     
     func getPosts()
     {

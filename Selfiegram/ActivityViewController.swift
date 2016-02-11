@@ -13,6 +13,7 @@ class ActivityViewController: UITableViewController
 
     var activities: [Activity] = []
     
+    @IBOutlet var tapDetector: UITapGestureRecognizer!
    
     override func viewDidLoad()
     {
@@ -62,6 +63,9 @@ class ActivityViewController: UITableViewController
     {
         getActivities()
     }
+    
+    
+
     
     // MARK: - Helpers
     

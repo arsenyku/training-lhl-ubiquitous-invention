@@ -78,6 +78,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="postCell" id="ljJ-OZ-qpt" customClass="SelfieCell" customModule="Selfiegram" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="92" width="600" height="280"/>
@@ -111,11 +112,20 @@
                                                 <action selector="toggleLikeButton:" destination="ljJ-OZ-qpt" eventType="touchUpInside" id="tfd-mn-nzF"/>
                                             </connections>
                                         </button>
+                                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hearts-on" translatesAutoresizingMaskIntoConstraints="NO" id="2Og-ys-1JE" userLabel="beatingHeart">
+                                            <rect key="frame" x="140" y="130" width="20" height="20"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="20" id="6uv-dN-HKK"/>
+                                                <constraint firstAttribute="height" constant="20" id="FRN-R0-Ms8"/>
+                                            </constraints>
+                                        </imageView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="Dqf-Mv-egB" firstAttribute="centerX" secondItem="NGO-Qe-cBc" secondAttribute="centerX" id="7oa-YD-vcL" userLabel="text centre X"/>
                                         <constraint firstItem="vic-eE-iVB" firstAttribute="leading" secondItem="NGO-Qe-cBc" secondAttribute="trailing" multiplier="0.75" id="C2i-U2-XaV" userLabel="comment h space"/>
                                         <constraint firstItem="WX2-pj-jjd" firstAttribute="leading" secondItem="NGO-Qe-cBc" secondAttribute="trailing" multiplier="0.85" id="E83-IO-WQk" userLabel="likeButton left"/>
+                                        <constraint firstItem="2Og-ys-1JE" firstAttribute="centerX" secondItem="NGO-Qe-cBc" secondAttribute="centerX" id="INN-xp-JDk"/>
+                                        <constraint firstItem="2Og-ys-1JE" firstAttribute="centerY" secondItem="NGO-Qe-cBc" secondAttribute="centerY" id="T2B-am-g2Q"/>
                                         <constraint firstAttribute="top" secondItem="NGO-Qe-cBc" secondAttribute="top" constant="-10" id="UER-un-EfK"/>
                                         <constraint firstItem="vic-eE-iVB" firstAttribute="top" secondItem="NGO-Qe-cBc" secondAttribute="top" id="Uig-Th-drO" userLabel="comment top"/>
                                         <constraint firstItem="NGO-Qe-cBc" firstAttribute="leading" secondItem="BFN-0B-o6Z" secondAttribute="leading" constant="20" id="ZIe-s4-afW" userLabel="image x"/>
@@ -125,6 +135,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="beatingHeartView" destination="2Og-ys-1JE" id="EIl-6W-XD6"/>
                                     <outlet property="likeButton" destination="WX2-pj-jjd" id="xeq-Uo-NBP"/>
                                     <outlet property="postCommentField" destination="vic-eE-iVB" id="63P-NL-GVn"/>
                                     <outlet property="postImageView" destination="NGO-Qe-cBc" id="XBJ-Vv-ru2"/>
@@ -135,6 +146,7 @@
                         <connections>
                             <outlet property="dataSource" destination="1m3-rp-m6r" id="Ptz-Sl-7Xq"/>
                             <outlet property="delegate" destination="1m3-rp-m6r" id="mH2-CB-2tA"/>
+                            <outletCollection property="gestureRecognizers" destination="jsj-Lq-Uok" appends="YES" id="crX-9F-Wzg"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="F2J-kc-k76">
@@ -157,6 +169,11 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Zg-WF-Qjf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer numberOfTapsRequired="2" id="jsj-Lq-Uok">
+                    <connections>
+                        <action selector="doubleTappedSelfie:" destination="1m3-rp-m6r" id="lCd-8T-wJS"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="3370" y="176"/>
         </scene>
@@ -168,6 +185,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="activityCell" textLabel="pkh-vr-KNT" style="IBUITableViewCellStyleDefault" id="HR5-2t-aDW" customClass="ActivityCell" customModule="Selfiegram" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="92" width="600" height="44"/>
@@ -195,6 +213,7 @@
                     <navigationItem key="navigationItem" id="vrY-Yo-sBK"/>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="P22-tu-MfR">
                         <autoresizingMask key="autoresizingMask"/>
+                        <gestureRecognizers/>
                         <connections>
                             <action selector="refresh:" destination="1Ts-Yc-8hF" eventType="valueChanged" id="18a-S3-iyH"/>
                         </connections>

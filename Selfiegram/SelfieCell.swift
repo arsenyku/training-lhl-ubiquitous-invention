@@ -15,6 +15,7 @@ class SelfieCell: UITableViewCell {
     @IBOutlet weak var postNameField: UITextField!
     @IBOutlet weak var postCommentField: UITextField!
     @IBOutlet weak var likeButton: UIButton!
+    @IBOutlet weak var beatingHeartView: UIImageView!
     
     var post:Post?
     
@@ -174,5 +175,29 @@ class SelfieCell: UITableViewCell {
                 print("error is \(error)")
             }
         })
+    }
+    
+    func tapAnimation()
+    {
+        beatingHeartView.hidden = false;
+        likeButton.hidden = true;
+        beatingHeartView.image = UIImage(named: likeButton.selected ? "hearts-off" : "hearts-on")
+        
+        beatingHeartView.frame = CGRectMake((postImageView.frame.maxX - postImageView.frame.minX)/2, (postImageView.frame.maxY - postImageView.frame.minY)/2, 60, 60)
+        
+        UIView.animateWithDuration(1.0, delay: 0, options: [], animations:
+        { () -> Void in
+
+            self.beatingHeartView.frame = self.likeButton.frame
+            self.likeButton.hidden = false
+            
+        }, completion:
+        { (success) -> Void in
+            
+            self.beatingHeartView.hidden = true
+            self.toggleLikeButton(self.likeButton)
+            
+        })
+        
     }
 }
