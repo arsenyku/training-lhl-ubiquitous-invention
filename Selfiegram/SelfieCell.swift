@@ -46,6 +46,7 @@ class SelfieCell: UITableViewCell {
         postImageView.layer.cornerRadius = self.postImageView.layer.frame.width/2.0
         postImageView.layer.borderWidth = 0
 
+        self.postImageView.image = nil
         
         imageFile.getDataInBackgroundWithBlock { (data, error) -> Void in
             if let data = data {
