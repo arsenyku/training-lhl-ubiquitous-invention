@@ -177,39 +177,49 @@ class SelfieCell: UITableViewCell {
         })
     }
     
+    func likeButtonClicked(sender: UIButton)
+    {
+        toggleLikeButton(sender)
+    }
+    
     func tapAnimation()
     {
-        beatingHeartView.hidden = false;
-        likeButton.hidden = true;
-        beatingHeartView.image = UIImage(named: likeButton.selected ? "hearts-off" : "hearts-on")
+        let selfie = postImageView
+        let floatingHeart = beatingHeartView
+        let fixedHeart = likeButton
         
-        beatingHeartView.frame = CGRectMake((postImageView.frame.maxX - postImageView.frame.minX)/2, (postImageView.frame.maxY - postImageView.frame.minY)/2, 60, 60)
+        
+        floatingHeart.hidden = false;
+        fixedHeart.hidden = true;
+        floatingHeart.image = UIImage(named: fixedHeart.selected ? "hearts-off" : "hearts-on")
+        
+        floatingHeart.frame = CGRectMake((selfie.frame.maxX - selfie.frame.minX)/2, (selfie.frame.maxY - selfie.frame.minY)/2, 60, 60)
         
         UIView.animateKeyframesWithDuration(2.0, delay: 0, options: [.CalculationModeCubicPaced], animations:
         { () -> Void in
             for i in 0...4
             {
                 let even = (i%2 == 0)
-                let pulse = CGFloat(even ? 1.5 : 0.5)
+                let pulse = CGFloat(even ? 1.5 : 0.55)
                 
                 UIView.addKeyframeWithRelativeStartTime(0.2*Double(i), relativeDuration: 0.2)
                 { () -> Void in
-                    self.beatingHeartView.transform = CGAffineTransformRotate(self.beatingHeartView.transform, CGFloat(Double(i)*M_PI/5.0))
-                    self.beatingHeartView.transform = CGAffineTransformScale(self.beatingHeartView.transform, pulse, pulse)
+                    floatingHeart.transform = CGAffineTransformRotate(floatingHeart.transform, CGFloat(Double(i)*M_PI/5.0))
+                    floatingHeart.transform = CGAffineTransformScale(floatingHeart.transform, pulse, pulse)
 
                 }
 
             }
             
-            self.beatingHeartView.transform = CGAffineTransformIdentity
-            self.beatingHeartView.frame = self.likeButton.frame
-            self.likeButton.hidden = false
+            floatingHeart.transform = CGAffineTransformIdentity
+            floatingHeart.frame = fixedHeart.frame
+            fixedHeart.hidden = false
             
         }, completion:
         { (success) -> Void in
             
-            self.beatingHeartView.hidden = true
-            self.toggleLikeButton(self.likeButton)
+            floatingHeart.hidden = true
+            self.likeButtonClicked(fixedHeart)
             
         })
         
