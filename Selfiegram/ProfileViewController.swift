@@ -21,6 +21,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         super.viewDidLoad()
         
         nameLabel.text = "yourName"
+        navigationItem.titleView = UIImageView(image: UIImage(named: "Selfigram-logo"))
+
     }
 
     override func viewWillAppear(animated: Bool) {

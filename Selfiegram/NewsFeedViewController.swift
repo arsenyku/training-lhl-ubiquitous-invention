@@ -20,6 +20,7 @@ class NewsFeedViewController: UITableViewController,UIImagePickerControllerDeleg
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.titleView = UIImageView(image: UIImage(named: "Selfigram-logo"))
 
         if TARGET_OS_SIMULATOR != 1
         {
