@@ -185,7 +185,7 @@ class SelfieCell: UITableViewCell {
         
         beatingHeartView.frame = CGRectMake((postImageView.frame.maxX - postImageView.frame.minX)/2, (postImageView.frame.maxY - postImageView.frame.minY)/2, 60, 60)
         
-        UIView.animateKeyframesWithDuration(2.0, delay: 0, options: [.CalculationModePaced], animations:
+        UIView.animateKeyframesWithDuration(2.0, delay: 0, options: [.CalculationModeCubicPaced], animations:
         { () -> Void in
             for i in 0...4
             {
