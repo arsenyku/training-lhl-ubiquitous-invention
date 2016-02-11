@@ -24,6 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Parse.setApplicationId("xFXFsw0GM3cKJIO6yrEllxanzmZgnYphdqzaMoSV",
             clientKey: "he0o5zqe8wvBI3Z5n4SBEzdjW5iXJ8h1PwFRNTPt")
         
+        PFUser.enableRevocableSessionInBackground()
+        
         let user = PFUser()
         let username = "arsenyk"
         let password = "arsenyk"
@@ -63,6 +65,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        
+        print("Logging out")
+        PFUser.logOut()
     }
 
 

@@ -103,7 +103,7 @@ class NewsFeedViewController: UITableViewController,UIImagePickerControllerDeleg
 
     @IBAction func moreCatsPlease(sender: UIRefreshControl?) {
         
-        getMoreCats()
+        getPosts()
 
         
     }
@@ -195,87 +195,18 @@ class NewsFeedViewController: UITableViewController,UIImagePickerControllerDeleg
                     }
                     
                     self.tableView.reloadData()
+                    
+                    if (self.refresh.refreshing)
+                    {
+	                    dispatch_async(dispatch_get_main_queue(),
+    	                {
+        	                    self.refresh.endRefreshing()
+            	        })
+                    }
                 }
             })
         }
-        
     }
-    
-    func getMoreCats()
-    {
-        
-        dispatch_async(dispatch_get_main_queue(),
-        {
-            self.refresh.endRefreshing()
-        })
-        
-//        let url = NSURL(string: "https://www.flickr.com/services/rest/?method=flickr.photos.search&format=json&nojsoncallback=1&api_key=e33dc5502147cf3fd3515aa44224783f&tags=cat"),
-//        task = NSURLSession.sharedSession().dataTaskWithURL(url!) { (data, response, error) -> Void in
-//            
-//            
-//            do {
-//                
-//                let jsonUnformatted = try NSJSONSerialization.JSONObjectWithData(data!, options: [])
-//                
-//                let json = jsonUnformatted as? [String : AnyObject]
-//                
-//                let photosDictionary = json?["photos"] as? [String : AnyObject]
-//                
-//                guard let photosArray = photosDictionary?["photo"] as? [[String : AnyObject]] else
-//                {
-//                    print("error with parsing photos in response data")
-//                    return
-//                }
-//                
-//                
-//                for photo in photosArray
-//                {
-//                    
-//                    if let farmID = photo["farm"] as? Int,
-//                        let serverID = photo["server"] as? String,
-//                        let photoID = photo["id"] as? String,
-//                        let secret = photo["secret"] as? String,
-//                        let title = photo["title"] as? String,
-//                        let owner = photo["owner"] as? String
-//                    {
-//                        
-//                        let photoURLString = "https://farm\(farmID).staticflickr.com/\(serverID)/\(photoID)_\(secret).jpg"
-//                        
-//                        if let _ = NSURL(string: photoURLString){
-//                            let poster = PFUser()
-//                            
-//                            poster.username = owner
-//                            
-//                            let post = Post(image: PFFile, user: poster, comment: title)
-////                            let post = Post(user:me, imageAddress: photoURLString, comment: title)
-//                            
-//                            self.posts.append(post)
-//                        }
-//                        
-//                    }
-//                    
-//                }
-//                
-//                
-//                dispatch_async(dispatch_get_main_queue(),
-//                {
-//                    self.tableView.reloadData()
-//                    self.refresh.endRefreshing()
-//                })
-//                
-//                
-//            } catch
-//            {
-//                print("error with parsing response data")
-//            }
-//            
-//        }
-//        
-//        task.resume()
-//
-        
-    }
-    
 
 
 }

@@ -136,7 +136,8 @@ class SelfieCell: UITableViewCell {
     {
         guard let user = PFUser.currentUser() else { return }
         
-        post.saveInBackgroundWithBlock({ (success, error) -> Void in
+        post.saveInBackgroundWithBlock(
+        {(success, error) -> Void in
             if success
             {
                 print("like from user successfully removed")

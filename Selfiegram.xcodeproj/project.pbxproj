@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		12058F3C1C6C398100D43822 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12058F3B1C6C398100D43822 /* ActivityViewController.swift */; };
+		12058F3E1C6C3A0200D43822 /* ActivityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12058F3D1C6C3A0200D43822 /* ActivityCell.swift */; };
 		123B47071C57227B0011D340 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123B47061C57227B0011D340 /* AppDelegate.swift */; };
 		123B47091C57227B0011D340 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123B47081C57227B0011D340 /* ProfileViewController.swift */; };
 		123B470C1C57227B0011D340 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 123B470A1C57227B0011D340 /* Main.storyboard */; };
@@ -33,6 +35,8 @@
 
 /* Begin PBXFileReference section */
 		00965E74EE08C36EDCFECBF2 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		12058F3B1C6C398100D43822 /* ActivityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
+		12058F3D1C6C3A0200D43822 /* ActivityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityCell.swift; sourceTree = "<group>"; };
 		123B47031C57227B0011D340 /* Selfiegram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Selfiegram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		123B47061C57227B0011D340 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		123B47081C57227B0011D340 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -71,6 +75,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		12058F3F1C6C3A1200D43822 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				123B47081C57227B0011D340 /* ProfileViewController.swift */,
+				123B47281C5754050011D340 /* NewsFeedViewController.swift */,
+				12058F3B1C6C398100D43822 /* ActivityViewController.swift */,
+			);
+			name = ViewController;
+			sourceTree = "<group>";
+		};
+		12058F401C6C3A2100D43822 /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+				123B474B1C60A1C80011D340 /* Activity.swift */,
+				123B472A1C5764810011D340 /* Post.swift */,
+				123B472C1C5766D20011D340 /* User.swift */,
+			);
+			name = DataModel;
+			sourceTree = "<group>";
+		};
+		12058F411C6C3A3000D43822 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				123B47261C5753950011D340 /* SelfieCell.swift */,
+				12058F3D1C6C3A0200D43822 /* ActivityCell.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
 		123B46FA1C57227B0011D340 = {
 			isa = PBXGroup;
 			children = (
@@ -95,12 +128,9 @@
 			isa = PBXGroup;
 			children = (
 				123B47061C57227B0011D340 /* AppDelegate.swift */,
-				123B47081C57227B0011D340 /* ProfileViewController.swift */,
-				123B47281C5754050011D340 /* NewsFeedViewController.swift */,
-				123B47261C5753950011D340 /* SelfieCell.swift */,
-				123B474B1C60A1C80011D340 /* Activity.swift */,
-				123B472A1C5764810011D340 /* Post.swift */,
-				123B472C1C5766D20011D340 /* User.swift */,
+				12058F3F1C6C3A1200D43822 /* ViewController */,
+				12058F411C6C3A3000D43822 /* View */,
+				12058F401C6C3A2100D43822 /* DataModel */,
 				123B470A1C57227B0011D340 /* Main.storyboard */,
 				123B470D1C57227B0011D340 /* Assets.xcassets */,
 				123B470F1C57227B0011D340 /* LaunchScreen.storyboard */,
@@ -291,7 +321,9 @@
 				123B47291C5754050011D340 /* NewsFeedViewController.swift in Sources */,
 				123B474C1C60A1C80011D340 /* Activity.swift in Sources */,
 				123B472D1C5766D20011D340 /* User.swift in Sources */,
+				12058F3E1C6C3A0200D43822 /* ActivityCell.swift in Sources */,
 				123B47071C57227B0011D340 /* AppDelegate.swift in Sources */,
+				12058F3C1C6C398100D43822 /* ActivityViewController.swift in Sources */,
 				123B47271C5753950011D340 /* SelfieCell.swift in Sources */,
 				123B472B1C5764810011D340 /* Post.swift in Sources */,
 			);
