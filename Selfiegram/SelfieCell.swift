@@ -203,11 +203,12 @@ class SelfieCell: UITableViewCell {
                 let even = (i%2 == 0)
                 let pulse = CGFloat(even ? 1.5 : 0.55)
                 
-                UIView.addKeyframeWithRelativeStartTime(0.2*Double(i), relativeDuration: 0.2)
+                let i = Double(i)
+                
+                UIView.addKeyframeWithRelativeStartTime(0.2*i, relativeDuration: 0.2)
                 { () -> Void in
-                    floatingHeart.transform = CGAffineTransformRotate(floatingHeart.transform, CGFloat(Double(i)*M_PI/5.0))
+                    floatingHeart.transform = CGAffineTransformRotate(floatingHeart.transform, CGFloat(2*M_PI*i/10.0))
                     floatingHeart.transform = CGAffineTransformScale(floatingHeart.transform, pulse, pulse)
-
                 }
 
             }
